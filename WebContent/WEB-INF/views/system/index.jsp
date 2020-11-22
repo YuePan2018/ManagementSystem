@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-HelloWorld
+get name as ${name}
 </body>
 </html>
