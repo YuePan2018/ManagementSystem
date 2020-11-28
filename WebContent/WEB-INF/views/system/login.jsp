@@ -73,14 +73,11 @@
 				if(password == '' || password == 'undefined'){
 					alert("请填写密码！");
 					return;
-				}
-				
+				}				
 				
 				addClass(document.querySelector(".login"), "active")
-				setTimeout(function(){
-					addClass(document.querySelector(".sk-rotating-plane"), "active")
-					document.querySelector(".login").style.display = "none"
-				},800)
+				addClass(document.querySelector(".sk-rotating-plane"), "active")
+				document.querySelector(".login").style.display = "none"
 				$.ajax({
 					url:'login',
 					data:{username:username,password:password},

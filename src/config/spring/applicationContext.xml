@@ -66,7 +66,7 @@
 		<!-- scan entity-->
 		<property name="typeAliasesPackage" value="com.yue.entity"></property>
 		<!-- scan mapper -->
-		<property name="mapperLocations" value="classpath:config/mybatis/mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:config/mybatis/mapper/admin/*.xml"></property>
 	</bean>
 
 	<!-- dao package -->

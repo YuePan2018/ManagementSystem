@@ -3,7 +3,10 @@ package com.yue.controller.admin;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yue.entity.admin.User;
+import com.yue.service.admin.UserService;
 
 /*
  * SpringMVC Controller
@@ -20,6 +24,10 @@ import com.yue.entity.admin.User;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
+	
+	@Autowired
+	private UserService userService;
+	
 	// index example
 	@RequestMapping(value= "/index",method=RequestMethod.GET)
 	public ModelAndView index(ModelAndView model) {
@@ -36,9 +44,9 @@ public class SystemController {
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> loginAct(User user){
+	public Map<String, String> loginAct(User user, HttpServletRequest request){
 		Map<String, String> ret = new HashMap<String, String>();
-		if(user == null){
+		/*if(user == null){
 			ret.put("type", "error");
 			ret.put("msg", "请填写用户信息！");
 			return ret;
@@ -52,32 +60,26 @@ public class SystemController {
 			ret.put("type", "error");
 			ret.put("msg", "请填写密码！");
 			return ret;
-		}/*
-		Object loginCpacha = request.getSession().getAttribute("loginCpacha");
-		if(loginCpacha == null){
-			ret.put("type", "error");
-			ret.put("msg", "会话超时，请刷新页面！");
-			return ret;
-		}
-		if(!cpacha.toUpperCase().equals(loginCpacha.toString().toUpperCase())){
-			ret.put("type", "error");
-			ret.put("msg", "验证码错误！");
-			logService.add("用户名为"+user.getUsername()+"的用户登录时输入验证码错误!");
-			return ret;
-		}
-		User findByUsername = userService.findByUsername(user.getUsername());
-		if(findByUsername == null){
+		}*/
+		
+		// "user" is the input from login page, "userInDB" is the corresponding login information in database 
+		/*User userInDB = userService.findByUsername(user.getUsername());
+		if(userInDB == null){
 			ret.put("type", "error");
 			ret.put("msg", "该用户名不存在！");
-			logService.add("登录时，用户名为"+user.getUsername()+"的用户不存在!");
 			return ret;
-		}
-		if(!user.getPassword().equals(findByUsername.getPassword())){
+		}*/
+		/*if(!userInDB.getPassword().equals(user.getPassword())){
 			ret.put("type", "error");
 			ret.put("msg", "密码错误！");
-			logService.add("用户名为"+user.getUsername()+"的用户登录时输入密码错误!");
 			return ret;
+		}*/
+		if(!user.getPassword().equals("   ")){
+		ret.put("type", "error");
+		ret.put("msg", "密码错误！");
+		return ret;
 		}
+		/*
 		//说明用户名密码及验证码都正确
 		//此时需要查询用户的角色权限
 		Role role = roleService.find(findByUsername.getRoleId());
@@ -93,7 +95,8 @@ public class SystemController {
 		//把角色信息、菜单信息放到session中
 		request.getSession().setAttribute("admin", findByUsername);
 		request.getSession().setAttribute("role", role);
-		request.getSession().setAttribute("userMenus", userMenus);*/
+		request.getSession().setAttribute("userMenus", userMenus);
+		*/		
 		ret.put("type", "success");
 		ret.put("msg", "登录成功！");
 		return ret;
