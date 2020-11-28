@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- saved from url=(0051)http://demo1.mycodes.net/denglu/HTML5_yonghudenglu/ -->
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Management Sytem Log In</title>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Log In Page</title>
   <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
   <meta name="author" content="Vincent Garreau">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,7 +14,7 @@
 <div id="particles-js">
 		<div class="login" style="display: block;">
 			<div class="login-top">
-				Log In
+				登录
 			</div>
 			<div class="login-center clearfix">
 				<div class="login-center-img"><img src="../resources/admin/login/images/name.png"></div>
@@ -64,14 +63,9 @@
 	    ele.className = newClass.replace(/^\s+|\s+$/g, '');
 	  }
 	}
-	
-	function changeCpacha(){
-		$("#cpacha-img").attr("src",'get_cpacha?vl=4&w=150&h=40&type=loginCpacha&t=' + new Date().getTime());
-	}
 		document.querySelector(".login-button").onclick = function(){
 				var username = $("#username").val();
 				var password = $("#password").val();
-				var cpacha = $("#cpacha").val();
 				if(username == '' || username == 'undefined'){
 					alert("请填写用户名！");
 					return;
@@ -80,16 +74,16 @@
 					alert("请填写密码！");
 					return;
 				}
-				if(cpacha == '' || cpacha == 'undefined'){
-					alert("请填写验证码！");
-					return;
-				}
+				
+				
 				addClass(document.querySelector(".login"), "active")
-				addClass(document.querySelector(".sk-rotating-plane"), "active")
-				document.querySelector(".login").style.display = "none"
+				setTimeout(function(){
+					addClass(document.querySelector(".sk-rotating-plane"), "active")
+					document.querySelector(".login").style.display = "none"
+				},800)
 				$.ajax({
 					url:'login',
-					data:{username:username,password:password,cpacha:cpacha},
+					data:{username:username,password:password},
 					type:'post',
 					dataType:'json',
 					success:function(data){
@@ -100,11 +94,10 @@
 							removeClass(document.querySelector(".sk-rotating-plane"), "active");
 							document.querySelector(".login").style.display = "block";
 							alert(data.msg);
-							changeCpacha();
 						}
 					}
 				});
-				
+				return;
 		}
 </script>
 </body></html>
