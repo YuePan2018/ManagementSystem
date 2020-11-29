@@ -28,13 +28,21 @@ public class SystemController {
 	@Autowired
 	private UserService userService;
 	
-	// index example
+	// index page (from login page)
 	@RequestMapping(value= "/index",method=RequestMethod.GET)
 	public ModelAndView index(ModelAndView model) {
 		model.setViewName("system/index");
 		model.addObject("name","data from MyBatis");
 		return model;
 	}
+
+	// welcome page (of index page)
+	@RequestMapping(value="/welcome",method=RequestMethod.GET)
+	public ModelAndView welcome(ModelAndView model){
+		model.setViewName("system/welcome");
+		return model;
+	}
+	
 	// log in page
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public ModelAndView login(ModelAndView model){
@@ -42,7 +50,10 @@ public class SystemController {
 		return model;
 	}
 	
-	// Authentication
+	/* 
+	 * Authentication
+	 * return value is in json
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> loginAct(User user, HttpServletRequest request){
@@ -63,7 +74,9 @@ public class SystemController {
 			return ret;
 		}*/
 		
-		// "user" is the input from login page, "userInDB" is the corresponding login information in database 
+		/* user is the username and password from login page, 
+		 * but "userInDB" is the corresponding user information in database 
+		 */
 		User userInDB = userService.findByUsername(user.getUsername());
 		if(userInDB == null){
 			ret.put("type", "error");
@@ -97,10 +110,15 @@ public class SystemController {
 		request.getSession().setAttribute("admin", findByUsername);
 		request.getSession().setAttribute("role", role);
 		request.getSession().setAttribute("userMenus", userMenus);
-		*/		
+		*/
+		
+		// store login information in session
+		request.getSession().setAttribute("admin", userInDB);	
+		// return data to jsp 
 		ret.put("type", "success");
 		ret.put("msg", "µÇÂ¼³É¹¦£¡");
 		return ret;
 	}
+	
 	
 }
