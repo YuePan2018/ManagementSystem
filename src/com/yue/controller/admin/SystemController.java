@@ -42,6 +42,7 @@ public class SystemController {
 		return model;
 	}
 	
+	// Authentication
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> loginAct(User user, HttpServletRequest request){
@@ -63,22 +64,22 @@ public class SystemController {
 		}*/
 		
 		// "user" is the input from login page, "userInDB" is the corresponding login information in database 
-		/*User userInDB = userService.findByUsername(user.getUsername());
+		User userInDB = userService.findByUsername(user.getUsername());
 		if(userInDB == null){
 			ret.put("type", "error");
 			ret.put("msg", "该用户名不存在！");
 			return ret;
-		}*/
-		/*if(!userInDB.getPassword().equals(user.getPassword())){
+		}
+		if(!userInDB.getPassword().equals(user.getPassword())){
 			ret.put("type", "error");
 			ret.put("msg", "密码错误！");
 			return ret;
-		}*/
-		if(!user.getPassword().equals("   ")){
+		}
+		/*if(!user.getPassword().equals("   ")){
 		ret.put("type", "error");
 		ret.put("msg", "密码错误！");
 		return ret;
-		}
+		}*/
 		/*
 		//说明用户名密码及验证码都正确
 		//此时需要查询用户的角色权限
