@@ -38,7 +38,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		Object admin = request.getSession().getAttribute("admin");
 		// if not login (no "admin" in session)
 		if(admin == null){
-			System.out.println("try to access£º " + requestURI + ", but not logged in");
+			System.out.println("Login Interceptor: user not logged in");
+			System.out.println("when access£º " + requestURI);
 			//if request is ajax, return json of error
 			String header = request.getHeader("X-Requested-With");
 			if("XMLHttpRequest".equals(header)){
